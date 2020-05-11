@@ -66,11 +66,11 @@ class Attention(Layer):
         if mask is not None:
             d_i*= K.cast(mask, K.floatx())
         
-        d_i/= K.cast(K.sum(d_i,axis=1,keepdims=True)+K.epsilon(),K.floatx())# keep dimension, still 173, for further weightsum
+        d_i/= K.cast(K.sum(d_i,axis=1,keepdims=True)+K.epsilon(),K.floatx())
         return d_i 
     
     def compute_output_shape(self, input_shape):
-        return (input_shape[0][0],input_shape[0][1]) # as None,173
+        return (input_shape[0][0],input_shape[0][1]) 
         
 
 class WeightedSum(Layer):
@@ -94,14 +94,6 @@ class WeightedSum(Layer):
         
     def compute_output_shape(self,input_shape):
         return(input_shape[0][0],input_shape[0][-1])
-        
-#
-#class Kmeans(Layer):# as alternative method layer
-#    def __init__(self,classnumber,**kwargs):
-#        self.supports_masing=True
-#        self.class_number=classnumber
-#        super(Kmeans,self).__init__(**kwargs)
-#        
         
 
         
@@ -129,7 +121,7 @@ class Reconstruction(Layer):
         
     
     def call(self, input_tensor,mask=None):
-        return(K.dot(input_tensor,self.T)) #none, 300 tensor
+        return(K.dot(input_tensor,self.T)) 
     
     def compute_mask(self,x,mask=None):
         return None
